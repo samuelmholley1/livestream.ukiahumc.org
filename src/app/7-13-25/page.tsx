@@ -50,11 +50,11 @@ const july13BulletinData = {
       content: [
         {
           speaker: "Leader",
-          text: ""For those who lose their life for my sake will find it." — Matthew 16:25"
+          text: "\"For those who lose their life for my sake will find it.\" — Matthew 16:25"
         },
         {
           speaker: "Reflection",
-          text: "We end our series hearing a phrase we heard in the beginning: "This is my Son." Truly we may say that Jesus was the Son of God and yet this scripture also calls him the Son of Man, or translated another way, "The Human One." Perhaps the invitation to "lose our lives" because of him is an invitation to live our lives knowing our intimate and holy connection with God that is intertwined with our connection to all humankind. When we lose our isolating self-focus for the sake of God and others, we are transfigured into the light of love that lives forever. This is the invitation to fully engage with life without fear!"
+          text: "We end our series hearing a phrase we heard in the beginning: \"This is my Son.\" Truly we may say that Jesus was the Son of God and yet this scripture also calls him the Son of Man, or translated another way, \"The Human One.\" Perhaps the invitation to \"lose our lives\" because of him is an invitation to live our lives knowing our intimate and holy connection with God that is intertwined with our connection to all humankind. When we lose our isolating self-focus for the sake of God and others, we are transfigured into the light of love that lives forever. This is the invitation to fully engage with life without fear!"
         }
       ]
     },
@@ -223,7 +223,7 @@ const july13BulletinData = {
       title: "OPPORTUNITIES FOR MINISTRY",
       items: [
         "If you are thinking of becoming a member, please join Pastor Michele for **Methodism 101 part 2** after Worship in the Social Hall.",
-        "**Book Study** will start this week, July 16, for 8 Wednesdays at 3 pm in room #106. Contact Linda, 707.462.3185, about ordering the book \"Practicing Hope\" by Mission U for $15.",
+        "**Book Study** will start this week, July 16, for 8 Wednesdays at 3 pm in room #106. Contact Linda, 707.462.3185, about ordering the book \\\"Practicing Hope\\\" by Mission U for $15.",
         "**July 27** is Luna's last Sunday with us. We will be sending her off with love during Worship.",
         "**Gentle Yoga** Every Wednesday and Saturday with Hand weights at 8:15 am",
         "**Gentle Yoga** at 8:30 am in the Social Hall led by Pastor Michele",
