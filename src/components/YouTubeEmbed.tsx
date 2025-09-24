@@ -22,7 +22,7 @@ export default function YouTubeEmbed({
   const embedId = videoId || 'live_stream'
   const embedUrl = videoId 
     ? `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`
-    : `https://www.youtube.com/embed/live_stream?channel=UCYourChannelId&autoplay=1&rel=0&modestbranding=1`
+    : `https://www.youtube.com/embed/live_stream?channel=UCIOZiJik0riHPY5Ty291NNQ&autoplay=1&rel=0&modestbranding=1`
 
   useEffect(() => {
     setIsLoaded(false)
