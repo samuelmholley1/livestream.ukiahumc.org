@@ -175,11 +175,11 @@ export default function PrayerComments() {
             {comments.map((comment) => (
               <div key={comment.id} className="border-b border-gray-100 pb-4 last:border-0">
                 <div className="flex items-start space-x-3">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full overflow-hidden bg-white border border-gray-200">
+                  <div className="flex-shrink-0 w-6 h-6 rounded-full overflow-hidden bg-white border border-gray-200">
                     <img 
                       src="/favicon-32x32.png" 
                       alt="Church Logo" 
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                     />
                   </div>
                   <div className="flex-1 min-w-0">
