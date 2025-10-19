@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import YouTubeEmbed from '@/components/YouTubeEmbed'
+import PrayerComments from '@/components/PrayerComments'
 
 export default function Home() {
   return (
@@ -29,6 +30,11 @@ export default function Home() {
             title="Ukiah United Methodist Church Live Stream"
             className="w-full"
           />
+        </div>
+
+        {/* Prayer Comments Section */}
+        <div className="mb-8">
+          <PrayerComments />
         </div>
 
         {/* Simple Footer */}

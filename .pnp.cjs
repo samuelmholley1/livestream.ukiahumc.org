@@ -30,6 +30,8 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:18.3.24"],\
           ["@types/react-dom", "virtual:4d4159e5df8c7ecd55fff35b65fe1361e1788b940f972f26ea9b38ab7abfb5064bd0e0b415f4bca3f375a84b0082de3d9279739d30ded394ecea6bf9198b584e#npm:18.3.7"],\
           ["autoprefixer", "virtual:4d4159e5df8c7ecd55fff35b65fe1361e1788b940f972f26ea9b38ab7abfb5064bd0e0b415f4bca3f375a84b0082de3d9279739d30ded394ecea6bf9198b584e#npm:10.4.21"],\
+          ["date-fns", "npm:4.1.0"],\
+          ["date-fns-tz", "virtual:4d4159e5df8c7ecd55fff35b65fe1361e1788b940f972f26ea9b38ab7abfb5064bd0e0b415f4bca3f375a84b0082de3d9279739d30ded394ecea6bf9198b584e#npm:3.2.0"],\
           ["eslint", "npm:8.57.1"],\
           ["eslint-config-next", "virtual:4d4159e5df8c7ecd55fff35b65fe1361e1788b940f972f26ea9b38ab7abfb5064bd0e0b415f4bca3f375a84b0082de3d9279739d30ded394ecea6bf9198b584e#npm:14.2.5"],\
           ["next", "virtual:4d4159e5df8c7ecd55fff35b65fe1361e1788b940f972f26ea9b38ab7abfb5064bd0e0b415f4bca3f375a84b0082de3d9279739d30ded394ecea6bf9198b584e#npm:14.2.5"],\
@@ -1467,6 +1469,37 @@ const RAW_RUNTIME_STATE =
           ["call-bound", "npm:1.0.4"],\
           ["es-errors", "npm:1.3.0"],\
           ["is-data-view", "npm:1.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["date-fns", [\
+      ["npm:4.1.0", {\
+        "packageLocation": "../../.yarn/berry/cache/date-fns-npm-4.1.0-764604ee0f-10c0.zip/node_modules/date-fns/",\
+        "packageDependencies": [\
+          ["date-fns", "npm:4.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["date-fns-tz", [\
+      ["npm:3.2.0", {\
+        "packageLocation": "../../.yarn/berry/cache/date-fns-tz-npm-3.2.0-fe150c9e17-10c0.zip/node_modules/date-fns-tz/",\
+        "packageDependencies": [\
+          ["date-fns-tz", "npm:3.2.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:4d4159e5df8c7ecd55fff35b65fe1361e1788b940f972f26ea9b38ab7abfb5064bd0e0b415f4bca3f375a84b0082de3d9279739d30ded394ecea6bf9198b584e#npm:3.2.0", {\
+        "packageLocation": "./.yarn/__virtual__/date-fns-tz-virtual-0e547bc171/3/.yarn/berry/cache/date-fns-tz-npm-3.2.0-fe150c9e17-10c0.zip/node_modules/date-fns-tz/",\
+        "packageDependencies": [\
+          ["date-fns-tz", "virtual:4d4159e5df8c7ecd55fff35b65fe1361e1788b940f972f26ea9b38ab7abfb5064bd0e0b415f4bca3f375a84b0082de3d9279739d30ded394ecea6bf9198b584e#npm:3.2.0"],\
+          ["@types/date-fns", null],\
+          ["date-fns", "npm:4.1.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/date-fns",\
+          "date-fns"\
         ],\
         "linkType": "HARD"\
       }]\
@@ -3305,6 +3338,8 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:18.3.24"],\
           ["@types/react-dom", "virtual:4d4159e5df8c7ecd55fff35b65fe1361e1788b940f972f26ea9b38ab7abfb5064bd0e0b415f4bca3f375a84b0082de3d9279739d30ded394ecea6bf9198b584e#npm:18.3.7"],\
           ["autoprefixer", "virtual:4d4159e5df8c7ecd55fff35b65fe1361e1788b940f972f26ea9b38ab7abfb5064bd0e0b415f4bca3f375a84b0082de3d9279739d30ded394ecea6bf9198b584e#npm:10.4.21"],\
+          ["date-fns", "npm:4.1.0"],\
+          ["date-fns-tz", "virtual:4d4159e5df8c7ecd55fff35b65fe1361e1788b940f972f26ea9b38ab7abfb5064bd0e0b415f4bca3f375a84b0082de3d9279739d30ded394ecea6bf9198b584e#npm:3.2.0"],\
           ["eslint", "npm:8.57.1"],\
           ["eslint-config-next", "virtual:4d4159e5df8c7ecd55fff35b65fe1361e1788b940f972f26ea9b38ab7abfb5064bd0e0b415f4bca3f375a84b0082de3d9279739d30ded394ecea6bf9198b584e#npm:14.2.5"],\
           ["next", "virtual:4d4159e5df8c7ecd55fff35b65fe1361e1788b940f972f26ea9b38ab7abfb5064bd0e0b415f4bca3f375a84b0082de3d9279739d30ded394ecea6bf9198b584e#npm:14.2.5"],\
