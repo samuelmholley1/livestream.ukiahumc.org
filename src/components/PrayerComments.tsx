@@ -162,8 +162,11 @@ export default function PrayerComments() {
   return (
     <div className="space-y-6">
       {/* Comments Display - Always visible during service time */}
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">
+      <div className="bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-md p-6 border border-blue-100">
+        <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+          <svg className="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+          </svg>
           Prayer Requests {comments.length > 0 && `(${comments.length})`}
         </h3>
         {comments.length === 0 ? (
@@ -204,7 +207,7 @@ export default function PrayerComments() {
 
       {/* Submit Form - Password Protected */}
       {!isPasswordCorrect ? (
-        <div className="bg-white border border-gray-200 rounded-lg p-6">
+        <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-200">
           <h3 className="text-xl font-semibold text-gray-800 mb-4">
             Share a Prayer Request
           </h3>
@@ -243,7 +246,7 @@ export default function PrayerComments() {
           </form>
         </div>
       ) : (
-        <div className="bg-white border border-gray-200 rounded-lg p-6">
+        <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-200">
           <h3 className="text-xl font-semibold text-gray-800 mb-4">
             Share Prayer Request
           </h3>
