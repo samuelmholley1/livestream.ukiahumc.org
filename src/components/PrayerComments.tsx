@@ -142,7 +142,7 @@ export default function PrayerComments() {
     return (
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
         <h3 className="text-xl font-semibold text-gray-800 mb-3">
-          Prayer Requests & Messages
+          Prayer Requests
         </h3>
         <p className="text-gray-700 mb-2">
           The comment box is open during Sunday worship service (9:00 AM - 11:30 AM Pacific Time)
@@ -164,7 +164,7 @@ export default function PrayerComments() {
       {/* Comments Display - Always visible during service time */}
       <div className="bg-white border border-gray-200 rounded-lg p-6">
         <h3 className="text-xl font-semibold text-gray-800 mb-4">
-          Prayer Requests & Messages {comments.length > 0 && `(${comments.length})`}
+          Prayer Requests {comments.length > 0 && `(${comments.length})`}
         </h3>
         {comments.length === 0 ? (
           <p className="text-gray-500 text-center py-8">
@@ -175,10 +175,12 @@ export default function PrayerComments() {
             {comments.map((comment) => (
               <div key={comment.id} className="border-b border-gray-100 pb-4 last:border-0">
                 <div className="flex items-start space-x-3">
-                  <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                    <span className="text-blue-600 font-semibold text-sm">
-                      {comment.firstName.charAt(0)}{comment.lastName.charAt(0)}
-                    </span>
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full overflow-hidden bg-white border border-gray-200">
+                    <img 
+                      src="/favicon-32x32.png" 
+                      alt="Church Logo" 
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-baseline space-x-2">
@@ -204,10 +206,10 @@ export default function PrayerComments() {
       {!isPasswordCorrect ? (
         <div className="bg-white border border-gray-200 rounded-lg p-6">
           <h3 className="text-xl font-semibold text-gray-800 mb-4">
-            Share a Prayer Request or Message
+            Share a Prayer Request
           </h3>
           <p className="text-gray-600 mb-4">
-            Enter the password to submit a prayer request or message during the service
+            Enter the password to submit a prayer request during the service
           </p>
           <p className="text-sm text-blue-600 mb-4">
             💡 Hint: The password is the same as our WiFi password (found in the bulletin)
@@ -243,7 +245,7 @@ export default function PrayerComments() {
       ) : (
         <div className="bg-white border border-gray-200 rounded-lg p-6">
           <h3 className="text-xl font-semibold text-gray-800 mb-4">
-            Share Prayer Request or Message
+            Share Prayer Request
           </h3>
           <form onSubmit={handleCommentSubmit} className="space-y-4">
           <div className="grid md:grid-cols-2 gap-4">
