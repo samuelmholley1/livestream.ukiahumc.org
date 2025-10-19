@@ -137,7 +137,7 @@ export default function PrayerComments() {
   const characterCount = message.length
   const characterLimit = 500
 
-  // Not service time
+  // Not service time - show closed message
   if (!isServiceTime) {
     return (
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
@@ -145,7 +145,7 @@ export default function PrayerComments() {
           Prayer Requests & Messages
         </h3>
         <p className="text-gray-700 mb-2">
-          The comment box is open during Sunday worship service (9:55 AM - 11:30 AM Pacific Time)
+          The comment box is open during Sunday worship service (9:00 AM - 11:30 AM Pacific Time)
         </p>
         <p className="text-gray-600 text-sm">
           Outside of service hours, please email announcements to{' '}
@@ -158,56 +158,52 @@ export default function PrayerComments() {
     )
   }
 
-  // Service time but password not entered
-  if (!isPasswordCorrect) {
-    return (
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">
-          Prayer Requests & Messages
-        </h3>
-        <p className="text-gray-600 mb-4">
-          Share your prayer requests and messages during the service
-        </p>
-        <form onSubmit={handlePasswordSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Enter password"
-              required
-            />
-          </div>
-          {error && (
-            <div className="text-red-600 text-sm">
-              {error}
-            </div>
-          )}
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-          >
-            Access Comments
-          </button>
-        </form>
-      </div>
-    )
-  }
-
-  // Service time and password correct - show comment form and comments
+  // Service time - show comments to everyone, but require password to submit
   return (
     <div className="space-y-6">
-      {/* Submit Form */}
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">
-          Share Prayer Request or Message
-        </h3>
-        <form onSubmit={handleCommentSubmit} className="space-y-4">
+      {/* Submit Form - Password Protected */}
+      {!isPasswordCorrect ? (
+        <div className="bg-white border border-gray-200 rounded-lg p-6">
+          <h3 className="text-xl font-semibold text-gray-800 mb-4">
+            Share a Prayer Request or Message
+          </h3>
+          <p className="text-gray-600 mb-4">
+            Enter the password to submit a prayer request or message during the service
+          </p>
+          <form onSubmit={handlePasswordSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Enter password"
+                required
+              />
+            </div>
+            {error && (
+              <div className="text-red-600 text-sm">
+                {error}
+              </div>
+            )}
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            >
+              Unlock Comment Form
+            </button>
+          </form>
+        </div>
+      ) : (
+        <div className="bg-white border border-gray-200 rounded-lg p-6">
+          <h3 className="text-xl font-semibold text-gray-800 mb-4">
+            Share Prayer Request or Message
+          </h3>
+          <form onSubmit={handleCommentSubmit} className="space-y-4">
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
@@ -274,8 +270,9 @@ export default function PrayerComments() {
           </button>
         </form>
       </div>
+      )}
 
-      {/* Comments Display */}
+      {/* Comments Display - Always visible during service time */}
       {comments.length > 0 && (
         <div className="bg-white border border-gray-200 rounded-lg p-6">
           <h3 className="text-xl font-semibold text-gray-800 mb-4">
