@@ -26,35 +26,27 @@ export default function PrayerComments() {
 
   // Check if it's service time (9:55am-11:30am PT on Sundays)
   useEffect(() => {
-    const checkServiceTime = () => {
-      try {
-        const now = new Date()
-        const pacificTime = toZonedTime(now, 'America/Los_Angeles')
-        const dayOfWeek = pacificTime.getDay()
-        
-        // Only Sunday (0)
-        if (dayOfWeek !== 0) {
-          setIsServiceTime(false)
-          return
-        }
-
-        // Set service window: 9:55am - 11:30am PT
-        const serviceStart = setSeconds(setMinutes(setHours(pacificTime, 9), 55), 0)
-        const serviceEnd = setSeconds(setMinutes(setHours(pacificTime, 11), 30), 0)
-
-        const isTime = isWithinInterval(pacificTime, {
-          start: serviceStart,
-          end: serviceEnd,
-        })
-
-        setIsServiceTime(isTime)
-      } catch (error) {
-        console.error('Error checking service time:', error)
-        setIsServiceTime(false)
-      }
+  const isServiceTime = () => {
+    try {
+      const now = new Date()
+      const pacificTime = toZonedTime(now, 'America/Los_Angeles')
+      const day = getDay(pacificTime)
+      const hour = getHours(pacificTime)
+      const minute = getMinutes(pacificTime)
+      
+      // Sunday = 0, check if between 9:00am and 11:30am PT
+      if (day !== 0) return false
+      
+      const currentMinutes = hour * 60 + minute
+      const startMinutes = 9 * 60 + 0  // 9:00am
+      const endMinutes = 11 * 60 + 30   // 11:30am
+      
+      return currentMinutes >= startMinutes && currentMinutes <= endMinutes
+    } catch (error) {
+      console.error('Error checking service time:', error)
+      return false
     }
-
-    checkServiceTime()
+  }    checkServiceTime()
     const interval = setInterval(checkServiceTime, 30000) // Check every 30 seconds
 
     return () => clearInterval(interval)
