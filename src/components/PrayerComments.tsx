@@ -46,7 +46,11 @@ export default function PrayerComments() {
       console.error('Error checking service time:', error)
       return false
     }
-  }    checkServiceTime()
+  }
+  
+  // Check service time on mount and every 30 seconds
+  useEffect(() => {
+    checkServiceTime()
     const interval = setInterval(checkServiceTime, 30000) // Check every 30 seconds
 
     return () => clearInterval(interval)
