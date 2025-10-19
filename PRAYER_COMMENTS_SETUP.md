@@ -17,7 +17,7 @@
 
 ### Step 2: Create Base
 1. Click "Create a base" → "Start from scratch"
-2. Name it: `Church Prayer Requests`
+2. Name it: `livestream.ukiahumc.org Comments`
 
 ### Step 3: Create Table
 1. Rename "Table 1" to: `Prayer Requests`
@@ -28,14 +28,21 @@
    - `Timestamp` (Single line text)
    - `Session` (Single line text)
 
-### Step 4: Get API Credentials
-1. Click your profile icon → Account
-2. Scroll to "API" section
-3. Click "Generate API key" → Copy it
+### Step 4: Create Personal Access Token (PAT)
+1. Go to https://airtable.com/create/tokens
+2. Click "Create new token"
+3. Name it: `livestream.ukiahumc.org Comments`
+4. Under "Scopes", select:
+   - ✅ `data.records:read`
+   - ✅ `data.records:write`
+5. Under "Access", click "Add a base"
+6. Select your `livestream.ukiahumc.org Comments` base
+7. Click "Create token"
+8. **COPY THE TOKEN** (starts with `pat...` - you can only see it once!)
 
 ### Step 5: Get Base ID
 1. Go to https://airtable.com/api
-2. Click your `Church Prayer Requests` base
+2. Click your `livestream.ukiahumc.org Comments` base
 3. Find "INTRODUCTION" section
 4. Copy the Base ID (starts with `app...`)
 
@@ -44,10 +51,12 @@
 Add these in Vercel Dashboard → Settings → Environment Variables:
 
 ```
-AIRTABLE_API_KEY=keyXXXXXXXXXXXXXX
+AIRTABLE_API_KEY=patXXXXXXXXXXXXXXXXX
 AIRTABLE_BASE_ID=appXXXXXXXXXXXXXX
 AIRTABLE_TABLE_NAME=Prayer Requests
 ```
+
+**Note:** The token starts with `pat` (Personal Access Token), not `key`
 
 ## 📱 How It Works
 

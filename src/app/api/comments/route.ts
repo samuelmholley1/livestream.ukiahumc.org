@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY
+const AIRTABLE_PAT = process.env.AIRTABLE_PAT
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID
 const AIRTABLE_TABLE_NAME = process.env.AIRTABLE_TABLE_NAME || 'Prayer Requests'
 
 // GET - Fetch comments for current session
 export async function GET(request: NextRequest) {
   try {
-    if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) {
+    if (!AIRTABLE_PAT || !AIRTABLE_BASE_ID) {
       return NextResponse.json(
         { error: 'Airtable configuration missing' },
         { status: 500 }
@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
 
     const response = await fetch(url, {
       headers: {
-        Authorization: `Bearer ${AIRTABLE_API_KEY}`,
+        Authorization: `Bearer ${AIRTABLE_PAT}`,
       },
     })
 
@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
 // POST - Submit new comment
 export async function POST(request: NextRequest) {
   try {
-    if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) {
+    if (!AIRTABLE_PAT || !AIRTABLE_BASE_ID) {
       return NextResponse.json(
         { error: 'Airtable configuration missing' },
         { status: 500 }
@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${AIRTABLE_API_KEY}`,
+        Authorization: `Bearer ${AIRTABLE_PAT}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
