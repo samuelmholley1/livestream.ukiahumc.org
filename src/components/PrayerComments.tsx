@@ -170,6 +170,9 @@ export default function PrayerComments() {
           <p className="text-gray-600 mb-4">
             Enter the password to submit a prayer request or message during the service
           </p>
+          <p className="text-sm text-blue-600 mb-4">
+            💡 Hint: The password is the same as our WiFi password (found in the bulletin)
+          </p>
           <form onSubmit={handlePasswordSubmit} className="space-y-4">
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
