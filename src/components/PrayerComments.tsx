@@ -161,6 +161,45 @@ export default function PrayerComments() {
   // Service time - show comments to everyone, but require password to submit
   return (
     <div className="space-y-6">
+      {/* Comments Display - Always visible during service time */}
+      <div className="bg-white border border-gray-200 rounded-lg p-6">
+        <h3 className="text-xl font-semibold text-gray-800 mb-4">
+          Prayer Requests & Messages {comments.length > 0 && `(${comments.length})`}
+        </h3>
+        {comments.length === 0 ? (
+          <p className="text-gray-500 text-center py-8">
+            No messages yet. Be the first to share!
+          </p>
+        ) : (
+          <div className="space-y-4 max-h-96 overflow-y-auto">
+            {comments.map((comment) => (
+              <div key={comment.id} className="border-b border-gray-100 pb-4 last:border-0">
+                <div className="flex items-start space-x-3">
+                  <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                    <span className="text-blue-600 font-semibold text-sm">
+                      {comment.firstName.charAt(0)}{comment.lastName.charAt(0)}
+                    </span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-baseline space-x-2">
+                      <span className="font-semibold text-gray-900">
+                        {comment.firstName} {comment.lastName}
+                      </span>
+                      <span className="text-xs text-gray-500">
+                        {format(new Date(comment.timestamp), 'h:mm a')}
+                      </span>
+                    </div>
+                    <p className="text-gray-700 mt-1 whitespace-pre-wrap break-words">
+                      {comment.message}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
       {/* Submit Form - Password Protected */}
       {!isPasswordCorrect ? (
         <div className="bg-white border border-gray-200 rounded-lg p-6">
@@ -274,45 +313,6 @@ export default function PrayerComments() {
         </form>
       </div>
       )}
-
-      {/* Comments Display - Always visible during service time */}
-      <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">
-          Prayer Requests & Messages {comments.length > 0 && `(${comments.length})`}
-        </h3>
-        {comments.length === 0 ? (
-          <p className="text-gray-500 text-center py-8">
-            No messages yet. Be the first to share!
-          </p>
-        ) : (
-          <div className="space-y-4 max-h-96 overflow-y-auto">
-            {comments.map((comment) => (
-              <div key={comment.id} className="border-b border-gray-100 pb-4 last:border-0">
-                <div className="flex items-start space-x-3">
-                  <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                    <span className="text-blue-600 font-semibold text-sm">
-                      {comment.firstName.charAt(0)}{comment.lastName.charAt(0)}
-                    </span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-baseline space-x-2">
-                      <span className="font-semibold text-gray-900">
-                        {comment.firstName} {comment.lastName}
-                      </span>
-                      <span className="text-xs text-gray-500">
-                        {format(new Date(comment.timestamp), 'h:mm a')}
-                      </span>
-                    </div>
-                    <p className="text-gray-700 mt-1 whitespace-pre-wrap break-words">
-                      {comment.message}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
     </div>
   )
 }
