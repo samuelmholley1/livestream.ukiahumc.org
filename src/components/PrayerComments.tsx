@@ -58,9 +58,9 @@ export default function PrayerComments() {
     return () => clearInterval(interval)
   }, [])
 
-  // Fetch comments every 5 seconds during service time
+  // Fetch comments every 5 seconds during service time (regardless of password)
   useEffect(() => {
-    if (!isServiceTime || !isPasswordCorrect) return
+    if (!isServiceTime) return
 
     const fetchComments = async () => {
       try {
@@ -78,7 +78,7 @@ export default function PrayerComments() {
     const interval = setInterval(fetchComments, 5000) // Auto-refresh every 5 seconds
 
     return () => clearInterval(interval)
-  }, [isServiceTime, isPasswordCorrect])
+  }, [isServiceTime])
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -273,11 +273,15 @@ export default function PrayerComments() {
       )}
 
       {/* Comments Display - Always visible during service time */}
-      {comments.length > 0 && (
-        <div className="bg-white border border-gray-200 rounded-lg p-6">
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">
-            Recent Messages ({comments.length})
-          </h3>
+      <div className="bg-white border border-gray-200 rounded-lg p-6">
+        <h3 className="text-xl font-semibold text-gray-800 mb-4">
+          Prayer Requests & Messages {comments.length > 0 && `(${comments.length})`}
+        </h3>
+        {comments.length === 0 ? (
+          <p className="text-gray-500 text-center py-8">
+            No messages yet. Be the first to share!
+          </p>
+        ) : (
           <div className="space-y-4 max-h-96 overflow-y-auto">
             {comments.map((comment) => (
               <div key={comment.id} className="border-b border-gray-100 pb-4 last:border-0">
@@ -304,8 +308,8 @@ export default function PrayerComments() {
               </div>
             ))}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }

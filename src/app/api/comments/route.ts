@@ -18,7 +18,11 @@ export async function GET(request: NextRequest) {
     const now = new Date()
     const sessionDate = now.toISOString().split('T')[0]
 
-    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE_NAME)}?filterByFormula={Session}='${sessionDate}'&sort[0][field]=Timestamp&sort[0][direction]=desc`
+    // Fetch ALL comments for now to debug
+    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE_NAME)}?sort[0][field]=Timestamp&sort[0][direction]=desc&maxRecords=50`
+    
+    console.log('Fetching comments for session:', sessionDate)
+    console.log('API URL:', url)
 
     const response = await fetch(url, {
       headers: {
@@ -31,6 +35,9 @@ export async function GET(request: NextRequest) {
     }
 
     const data = await response.json()
+    
+    console.log('Airtable response:', JSON.stringify(data, null, 2))
+    console.log('Number of records:', data.records?.length || 0)
 
     const comments = data.records.map((record: any) => ({
       id: record.id,
@@ -39,6 +46,8 @@ export async function GET(request: NextRequest) {
       message: record.fields.Message || '',
       timestamp: record.fields.Timestamp || '',
     }))
+    
+    console.log('Formatted comments:', comments)
 
     return NextResponse.json({ comments })
   } catch (error) {
