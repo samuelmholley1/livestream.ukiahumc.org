@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { format, isWithinInterval, setHours, setMinutes, setSeconds } from 'date-fns'
+import { format, getDay, getHours, getMinutes } from 'date-fns'
 import { toZonedTime } from 'date-fns-tz'
 
 interface Comment {
@@ -24,9 +24,8 @@ export default function PrayerComments() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
 
-  // Check if it's service time (9:55am-11:30am PT on Sundays)
-  useEffect(() => {
-  const isServiceTime = () => {
+  // Check if it's service time (9:00am-11:30am PT on Sundays)
+  const checkServiceTime = () => {
     try {
       const now = new Date()
       const pacificTime = toZonedTime(now, 'America/Los_Angeles')
@@ -35,16 +34,19 @@ export default function PrayerComments() {
       const minute = getMinutes(pacificTime)
       
       // Sunday = 0, check if between 9:00am and 11:30am PT
-      if (day !== 0) return false
+      if (day !== 0) {
+        setIsServiceTime(false)
+        return
+      }
       
       const currentMinutes = hour * 60 + minute
       const startMinutes = 9 * 60 + 0  // 9:00am
       const endMinutes = 11 * 60 + 30   // 11:30am
       
-      return currentMinutes >= startMinutes && currentMinutes <= endMinutes
+      setIsServiceTime(currentMinutes >= startMinutes && currentMinutes <= endMinutes)
     } catch (error) {
       console.error('Error checking service time:', error)
-      return false
+      setIsServiceTime(false)
     }
   }
   
