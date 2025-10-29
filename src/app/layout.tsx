@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   title: 'Ukiah United Methodist Church - Live Stream',
   description: 'Join us live for worship services and special events at Ukiah United Methodist Church',
   manifest: '/site.webmanifest',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon-16x16.png',
+    apple: '/apple-touch-icon.png',
+  },
 }
 
 export const viewport: Viewport = {
