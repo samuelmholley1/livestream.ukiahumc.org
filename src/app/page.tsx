@@ -83,10 +83,10 @@ export default function Home() {
             <div className="aspect-video bg-gradient-to-br from-blue-50 via-white to-blue-50 rounded-lg flex flex-col items-center justify-center p-8 text-center">
               <div className="mb-6">
                 <Image
-                  src="/logo-for-church-larger.jpg"
+                  src="/uumc_icon_wall.png"
                   alt="Ukiah United Methodist Church"
-                  width={150}
-                  height={150}
+                  width={200}
+                  height={200}
                   className="mx-auto rounded-lg shadow-md opacity-90"
                 />
               </div>
