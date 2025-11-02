@@ -13,6 +13,28 @@ export const metadata: Metadata = {
     shortcut: '/favicon-16x16.png',
     apple: '/apple-touch-icon.png',
   },
+  openGraph: {
+    title: 'Ukiah United Methodist Church - Live Stream',
+    description: 'Join us live for worship services and special events at Ukiah United Methodist Church',
+    url: 'https://livestream.ukiahumc.org',
+    siteName: 'Ukiah United Methodist Church',
+    images: [
+      {
+        url: '/uumc_icon_wall_square.png',
+        width: 1200,
+        height: 1200,
+        alt: 'Ukiah United Methodist Church',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ukiah United Methodist Church - Live Stream',
+    description: 'Join us live for worship services and special events at Ukiah United Methodist Church',
+    images: ['/uumc_icon_wall_square.png'],
+  },
 }
 
 export const viewport: Viewport = {
