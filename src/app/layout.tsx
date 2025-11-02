@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: 'Ukiah United Methodist Church',
     images: [
       {
-        url: '/uumc_icon_wall_square.png',
+        url: 'https://livestream.ukiahumc.org/uumc_icon_wall_square.png',
         width: 1200,
         height: 1200,
         alt: 'Ukiah United Methodist Church',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Ukiah United Methodist Church - Live Stream',
     description: 'Join us live for worship services and special events at Ukiah United Methodist Church',
-    images: ['/uumc_icon_wall_square.png'],
+    images: ['https://livestream.ukiahumc.org/uumc_icon_wall_square.png'],
   },
 }
 
