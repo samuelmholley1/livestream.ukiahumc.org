@@ -143,7 +143,7 @@ export default function PrayerComments() {
     return (
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
         <h3 className="text-xl font-semibold text-gray-800 mb-3">
-          Prayer Requests
+          Service Messages
         </h3>
         <p className="text-gray-700 mb-2">
           The comment box is open during Sunday worship service (9:00 AM - 11:30 AM Pacific Time)
@@ -168,7 +168,7 @@ export default function PrayerComments() {
           <svg className="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
           </svg>
-          Prayer Requests {comments.length > 0 && `(${comments.length})`}
+          Service Messages
         </h3>
         {comments.length === 0 ? (
           <p className="text-gray-500 text-center py-8">
@@ -210,10 +210,10 @@ export default function PrayerComments() {
       {!isPasswordCorrect ? (
         <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-200">
           <h3 className="text-xl font-semibold text-gray-800 mb-4">
-            Share a Prayer Request
+            Share a Message
           </h3>
           <p className="text-gray-600 mb-4">
-            Enter the password to submit a prayer request during the service
+            Enter the password to submit a message during the service
           </p>
           <p className="text-sm text-blue-600 mb-4">
             💡 Hint: The password is the same as our WiFi password (found in the bulletin)
@@ -249,7 +249,7 @@ export default function PrayerComments() {
       ) : (
         <div className="bg-white rounded-2xl shadow-md p-6 border border-gray-200">
           <h3 className="text-xl font-semibold text-gray-800 mb-4">
-            Share Prayer Request
+            Share a Message
           </h3>
           <form onSubmit={handleCommentSubmit} className="space-y-4">
           <div className="grid md:grid-cols-2 gap-4">
