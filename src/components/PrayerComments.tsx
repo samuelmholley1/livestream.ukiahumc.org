@@ -44,6 +44,43 @@ export default function PrayerComments() {
     return () => clearInterval(interval)
   }, [])
 
+  // Auto-cleanup comments at 11:30am PT on Sundays
+  useEffect(() => {
+    const checkAndCleanup = async () => {
+      try {
+        const now = new Date()
+        const pacificTime = toZonedTime(now, 'America/Los_Angeles')
+        const day = getDay(pacificTime)
+        const hour = getHours(pacificTime)
+        const minute = getMinutes(pacificTime)
+        
+        // Only run on Sunday (0) at exactly 11:30am PT
+        if (day === 0 && hour === 11 && minute === 30) {
+          console.log('Triggering comment cleanup at 11:30am PT')
+          const response = await fetch('/api/comments', { method: 'DELETE' })
+          if (response.ok) {
+            const data = await response.json()
+            console.log(`Cleanup complete: ${data.deletedCount} comments deleted`)
+            // Refresh comments to show only pinned comment remains
+            const refreshResponse = await fetch('/api/comments')
+            if (refreshResponse.ok) {
+              const refreshData = await refreshResponse.json()
+              setComments(refreshData.comments || [])
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error during auto-cleanup:', error)
+      }
+    }
+
+    // Check every minute for the 11:30am cleanup time
+    const interval = setInterval(checkAndCleanup, 60000)
+    checkAndCleanup() // Also check immediately on mount
+
+    return () => clearInterval(interval)
+  }, [])
+
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (password === 'lovewins') {

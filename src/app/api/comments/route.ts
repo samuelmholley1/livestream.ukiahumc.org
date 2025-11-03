@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { format } from 'date-fns'
+import { toZonedTime } from 'date-fns-tz'
 
 const AIRTABLE_PAT = process.env.AIRTABLE_PAT
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID
@@ -14,9 +16,10 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Get current Sunday session date (YYYY-MM-DD)
+    // Get current Sunday session date (YYYY-MM-DD) in Pacific Time
     const now = new Date()
-    const sessionDate = now.toISOString().split('T')[0]
+    const pacificTime = toZonedTime(now, 'America/Los_Angeles')
+    const sessionDate = format(pacificTime, 'yyyy-MM-dd')
 
     // Fetch ALL comments for now to debug
     const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE_NAME)}?sort[0][field]=Timestamp&sort[0][direction]=desc&maxRecords=50`
@@ -96,10 +99,11 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Get current Sunday session date
+    // Get current Sunday session date and Pacific Time timestamp
     const now = new Date()
-    const sessionDate = now.toISOString().split('T')[0]
-    const timestamp = now.toISOString()
+    const pacificTime = toZonedTime(now, 'America/Los_Angeles')
+    const sessionDate = format(pacificTime, 'yyyy-MM-dd')
+    const timestamp = format(pacificTime, "yyyy-MM-dd'T'HH:mm:ssXXX")
 
     const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE_NAME)}`
 
@@ -142,6 +146,67 @@ export async function POST(request: NextRequest) {
     console.error('Error submitting comment:', error)
     return NextResponse.json(
       { error: 'Failed to submit comment' },
+      { status: 500 }
+    )
+  }
+}
+
+// DELETE - Clean up all comments except the pinned church comment
+export async function DELETE(request: NextRequest) {
+  try {
+    if (!AIRTABLE_PAT || !AIRTABLE_BASE_ID) {
+      return NextResponse.json(
+        { error: 'Airtable configuration missing' },
+        { status: 500 }
+      )
+    }
+
+    // Fetch all comments
+    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE_NAME)}`
+    
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${AIRTABLE_PAT}`,
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch from Airtable')
+    }
+
+    const data = await response.json()
+    
+    // Skip the first record (pinned church comment) - delete everything else
+    const recordsToDelete = data.records.slice(1)
+
+    // Delete records in batches of 10 (Airtable limit)
+    const deletePromises = []
+    for (let i = 0; i < recordsToDelete.length; i += 10) {
+      const batch = recordsToDelete.slice(i, i + 10)
+      const recordIds = batch.map((record: any) => record.id)
+      
+      const deleteUrl = `${url}?${recordIds.map((id: string) => `records[]=${id}`).join('&')}`
+      
+      deletePromises.push(
+        fetch(deleteUrl, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${AIRTABLE_PAT}`,
+          },
+        })
+      )
+    }
+
+    await Promise.all(deletePromises)
+
+    return NextResponse.json({ 
+      success: true, 
+      deletedCount: recordsToDelete.length 
+    })
+  } catch (error) {
+    console.error('Error deleting comments:', error)
+    return NextResponse.json(
+      { error: 'Failed to delete comments' },
       { status: 500 }
     )
   }
