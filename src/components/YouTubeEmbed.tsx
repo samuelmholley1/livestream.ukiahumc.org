@@ -5,10 +5,16 @@ import { useState, useEffect } from 'react'
 interface YouTubeEmbedProps {
   title?: string
   className?: string
+  videoId?: string
+  isLive?: boolean
 }
 
 export default function YouTubeEmbed({ 
   title = "Ukiah United Methodist Church Livestream",
+  className = "",
+  videoId,
+  isLive = false
+}: YouTubeEmbedProps) {
   const [isLoaded, setIsLoaded] = useState(false)
   const [hasError, setHasError] = useState(false)
 
