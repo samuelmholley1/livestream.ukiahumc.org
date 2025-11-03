@@ -3,18 +3,12 @@
 import { useState, useEffect } from 'react'
 
 interface YouTubeEmbedProps {
-  videoId?: string
-  isLive?: boolean
   title?: string
   className?: string
 }
 
 export default function YouTubeEmbed({ 
-  videoId, 
-  isLive = false, 
-  title = "Ukiah United Methodist Church Live Stream",
-  className = ""
-}: YouTubeEmbedProps) {
+  title = "Ukiah United Methodist Church Livestream",
   const [isLoaded, setIsLoaded] = useState(false)
   const [hasError, setHasError] = useState(false)
 
@@ -59,7 +53,7 @@ export default function YouTubeEmbed({
               </svg>
             </div>
             <h3 className="text-lg font-semibold text-gray-800 mb-2">Stream Unavailable</h3>
-            <p className="text-gray-600">Unable to load the live stream at this time.</p>
+            <p className="text-gray-600">Unable to load the livestream at this time.</p>
           </div>
         </div>
       )}

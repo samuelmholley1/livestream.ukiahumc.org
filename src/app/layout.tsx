@@ -5,7 +5,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Ukiah United Methodist Church - Live Stream',
+  title: 'Ukiah United Methodist Church - Livestream',
   description: 'Join us live for worship services and special events at Ukiah United Methodist Church',
   manifest: '/site.webmanifest',
   icons: {
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   openGraph: {
-    title: 'Ukiah United Methodist Church - Live Stream',
+    title: 'Ukiah United Methodist Church - Livestream',
     description: 'Join us live for worship services and special events at Ukiah United Methodist Church',
     url: 'https://livestream.ukiahumc.org',
     siteName: 'Ukiah United Methodist Church',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ukiah United Methodist Church - Live Stream',
+    title: 'Ukiah United Methodist Church - Livestream',
     description: 'Join us live for worship services and special events at Ukiah United Methodist Church',
     images: ['https://livestream.ukiahumc.org/uumc_icon_wall_square.png'],
   },

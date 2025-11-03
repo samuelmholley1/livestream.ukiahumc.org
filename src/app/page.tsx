@@ -61,10 +61,10 @@ export default function Home() {
           <h1 className="text-4xl font-bold text-gray-800 mb-2">
             Ukiah United Methodist Church
           </h1>
-          <h2 className="text-2xl text-blue-600 font-semibold">Live Stream</h2>
+          <h2 className="text-2xl text-blue-600 font-semibold">Livestream</h2>
         </header>
 
-        {/* Live Stream Video */}
+        {/* Livestream Video */}
         <div className="bg-white rounded-2xl shadow-md p-6 mb-8 border border-gray-100">
           {isServiceTime ? (
             <>
@@ -75,7 +75,7 @@ export default function Home() {
                 </h3>
               </div>
               <YouTubeEmbed
-                title="Ukiah United Methodist Church Live Stream"
+                title="Ukiah United Methodist Church Livestream"
                 className="w-full"
               />
             </>
@@ -97,7 +97,7 @@ export default function Home() {
                 Sundays at 10:00 AM
               </p>
               <p className="text-gray-500 max-w-md">
-                Our live stream begins at 10:00 AM Pacific Time every Sunday. 
+                Our livestream begins at 10:00 AM Pacific Time every Sunday. 
                 Come back during service time to watch!
               </p>
               <div className="mt-6 text-sm text-gray-400">

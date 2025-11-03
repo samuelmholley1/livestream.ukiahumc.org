@@ -13,7 +13,7 @@ interface Comment {
 }
 
 export default function PrayerComments() {
-  const [isServiceTime, setIsServiceTime] = useState(false)
+  const [isServiceTime] = useState(true) // TEMPORARILY UNLOCKED
   const [isPasswordCorrect, setIsPasswordCorrect] = useState(false)
   const [password, setPassword] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -24,44 +24,8 @@ export default function PrayerComments() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
 
-  // Check if it's service time (9:00am-11:30am PT on Sundays)
-  const checkServiceTime = () => {
-    try {
-      const now = new Date()
-      const pacificTime = toZonedTime(now, 'America/Los_Angeles')
-      const day = getDay(pacificTime)
-      const hour = getHours(pacificTime)
-      const minute = getMinutes(pacificTime)
-      
-      // Sunday = 0, check if between 9:00am and 11:30am PT
-      if (day !== 0) {
-        setIsServiceTime(false)
-        return
-      }
-      
-      const currentMinutes = hour * 60 + minute
-      const startMinutes = 9 * 60 + 0  // 9:00am
-      const endMinutes = 11 * 60 + 30   // 11:30am
-      
-      setIsServiceTime(currentMinutes >= startMinutes && currentMinutes <= endMinutes)
-    } catch (error) {
-      console.error('Error checking service time:', error)
-      setIsServiceTime(false)
-    }
-  }
-  
-  // Check service time on mount and every 30 seconds
+  // Fetch comments every 5 seconds (always active when unlocked)
   useEffect(() => {
-    checkServiceTime()
-    const interval = setInterval(checkServiceTime, 30000) // Check every 30 seconds
-
-    return () => clearInterval(interval)
-  }, [])
-
-  // Fetch comments every 5 seconds during service time (regardless of password)
-  useEffect(() => {
-    if (!isServiceTime) return
-
     const fetchComments = async () => {
       try {
         const response = await fetch('/api/comments')
@@ -78,7 +42,7 @@ export default function PrayerComments() {
     const interval = setInterval(fetchComments, 5000) // Auto-refresh every 5 seconds
 
     return () => clearInterval(interval)
-  }, [isServiceTime])
+  }, [])
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault()
