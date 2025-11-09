@@ -24,7 +24,7 @@ export default function PrayerComments() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
 
-  // Check if it's service time (10:00am-11:30am PT on Sundays)
+  // Check if it's service time (9:30am-11:30am PT on Sundays)
   useEffect(() => {
     const checkServiceTime = () => {
       try {
@@ -34,14 +34,14 @@ export default function PrayerComments() {
         const hour = getHours(pacificTime)
         const minute = getMinutes(pacificTime)
         
-        // Sunday = 0, check if between 10:00am and 11:30am PT
+        // Sunday = 0, check if between 9:30am and 11:30am PT
         if (day !== 0) {
           setIsServiceTime(false)
           return
         }
         
         const currentMinutes = hour * 60 + minute
-        const startMinutes = 10 * 60 + 0  // 10:00am
+        const startMinutes = 9 * 60 + 30  // 9:30am
         const endMinutes = 11 * 60 + 30   // 11:30am
         
         setIsServiceTime(currentMinutes >= startMinutes && currentMinutes <= endMinutes)
@@ -181,7 +181,7 @@ export default function PrayerComments() {
           Service Messages
         </h3>
         <p className="text-gray-700 mb-2">
-          The message box is open during Sunday worship service (10:00 AM - 11:30 AM Pacific Time)
+          The message box is open during Sunday worship service (9:30 AM - 11:30 AM Pacific Time)
         </p>
         <p className="text-gray-600 text-sm">
           Outside of service hours, please email announcements to{' '}
@@ -227,7 +227,7 @@ export default function PrayerComments() {
                         {comment.firstName} {comment.lastName}
                       </span>
                       <span className="text-xs text-gray-500">
-                        {format(new Date(comment.timestamp), 'h:mm a')}
+                        {format(toZonedTime(new Date(comment.timestamp), 'America/Los_Angeles'), 'h:mm a')}
                       </span>
                     </div>
                     <p className="text-gray-700 mt-1 whitespace-pre-wrap break-words">
