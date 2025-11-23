@@ -80,41 +80,43 @@ export default function PrayerComments() {
   }, [isServiceTime])
 
   // Auto-cleanup comments 24 hours after service ends (Monday 1:00pm PT)
-  useEffect(() => {
-    const checkAndCleanup = async () => {
-      try {
-        const now = new Date()
-        const pacificTime = toZonedTime(now, 'America/Los_Angeles')
-        const day = getDay(pacificTime)
-        const hour = getHours(pacificTime)
-        const minute = getMinutes(pacificTime)
-        
-        // Only run on Monday (1) at exactly 1:00pm PT (24 hours after Sunday service ends)
-        if (day === 1 && hour === 13 && minute === 0) {
-          console.log('Triggering comment cleanup at Monday 1:00pm PT (24 hours after service)')
-          const response = await fetch('/api/comments', { method: 'DELETE' })
-          if (response.ok) {
-            const data = await response.json()
-            console.log(`Cleanup complete: ${data.deletedCount} comments deleted`)
-            // Refresh comments to show only pinned comment remains
-            const refreshResponse = await fetch('/api/comments')
-            if (refreshResponse.ok) {
-              const refreshData = await refreshResponse.json()
-              setComments(refreshData.comments || [])
-            }
-          }
-        }
-      } catch (error) {
-        console.error('Error during auto-cleanup:', error)
-      }
-    }
-
-    // Check every minute for the 11:30am cleanup time
-    const interval = setInterval(checkAndCleanup, 60000)
-    checkAndCleanup() // Also check immediately on mount
-
-    return () => clearInterval(interval)
-  }, [])
+  // NOTE: This only works if someone has the website open at exactly Monday 1pm PT.
+  // For now, manual deletion is more reliable. Use the AIRTABLE_CURL_GUIDE.md for instructions.
+  // useEffect(() => {
+  //   const checkAndCleanup = async () => {
+  //     try {
+  //       const now = new Date()
+  //       const pacificTime = toZonedTime(now, 'America/Los_Angeles')
+  //       const day = getDay(pacificTime)
+  //       const hour = getHours(pacificTime)
+  //       const minute = getMinutes(pacificTime)
+  //       
+  //       // Only run on Monday (1) at exactly 1:00pm PT (24 hours after Sunday service ends)
+  //       if (day === 1 && hour === 13 && minute === 0) {
+  //         console.log('Triggering comment cleanup at Monday 1:00pm PT (24 hours after service)')
+  //         const response = await fetch('/api/comments', { method: 'DELETE' })
+  //         if (response.ok) {
+  //           const data = await response.json()
+  //           console.log(`Cleanup complete: ${data.deletedCount} comments deleted`)
+  //           // Refresh comments to show only pinned comment remains
+  //           const refreshResponse = await fetch('/api/comments')
+  //           if (refreshResponse.ok) {
+  //             const refreshData = await refreshResponse.json()
+  //             setComments(refreshData.comments || [])
+  //           }
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error('Error during auto-cleanup:', error)
+  //     }
+  //   }
+  //
+  //   // Check every minute for the cleanup time
+  //   const interval = setInterval(checkAndCleanup, 60000)
+  //   checkAndCleanup() // Also check immediately on mount
+  //
+  //   return () => clearInterval(interval)
+  // }, [])
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault()
