@@ -210,7 +210,7 @@ export default function PrayerComments() {
             No messages yet. Be the first to share!
           </p>
         ) : (
-          <div className="space-y-4 max-h-96 overflow-y-auto">
+          <div className="space-y-4">
             {comments.map((comment) => (
               <div key={comment.id} className="border-b border-gray-100 pb-4 last:border-0">
                 <div className="flex items-start space-x-3">

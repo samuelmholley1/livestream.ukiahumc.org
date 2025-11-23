@@ -21,8 +21,8 @@ export async function GET(request: NextRequest) {
     const pacificTime = toZonedTime(now, 'America/Los_Angeles')
     const sessionDate = format(pacificTime, 'yyyy-MM-dd')
 
-    // Fetch ALL comments for now to debug
-    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE_NAME)}?sort[0][field]=Timestamp&sort[0][direction]=desc&maxRecords=50`
+    // Fetch ALL comments sorted by timestamp ascending (oldest first, so pinned comment is on top)
+    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE_NAME)}?sort[0][field]=Timestamp&sort[0][direction]=asc&maxRecords=50`
     
     console.log('Fetching comments for session:', sessionDate)
     console.log('API URL:', url)
