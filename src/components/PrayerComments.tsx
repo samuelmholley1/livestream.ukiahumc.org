@@ -24,7 +24,7 @@ export default function PrayerComments() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
 
-  // Check if it's service time (9:00am-12:30pm PT on Sundays)
+  // Check if it's service time (9:00am-1:00pm PT on Sundays)
   useEffect(() => {
     const checkServiceTime = () => {
       try {
@@ -34,7 +34,7 @@ export default function PrayerComments() {
         const hour = getHours(pacificTime)
         const minute = getMinutes(pacificTime)
         
-        // Sunday = 0, check if between 9:00am and 12:30pm PT
+        // Sunday = 0, check if between 9:00am and 1:00pm PT
         if (day !== 0) {
           setIsServiceTime(false)
           return
@@ -42,7 +42,7 @@ export default function PrayerComments() {
         
         const currentMinutes = hour * 60 + minute
         const startMinutes = 9 * 60 + 0   // 9:00am
-        const endMinutes = 12 * 60 + 30   // 12:30pm
+        const endMinutes = 13 * 60 + 0    // 1:00pm
         
         setIsServiceTime(currentMinutes >= startMinutes && currentMinutes <= endMinutes)
       } catch (error) {
@@ -79,7 +79,7 @@ export default function PrayerComments() {
     return () => clearInterval(interval)
   }, [isServiceTime])
 
-  // Auto-cleanup comments at 12:30pm PT on Sundays
+  // Auto-cleanup comments 24 hours after service ends (Monday 1:00pm PT)
   useEffect(() => {
     const checkAndCleanup = async () => {
       try {
@@ -89,9 +89,9 @@ export default function PrayerComments() {
         const hour = getHours(pacificTime)
         const minute = getMinutes(pacificTime)
         
-        // Only run on Sunday (0) at exactly 12:30pm PT
-        if (day === 0 && hour === 12 && minute === 30) {
-          console.log('Triggering comment cleanup at 12:30pm PT')
+        // Only run on Monday (1) at exactly 1:00pm PT (24 hours after Sunday service ends)
+        if (day === 1 && hour === 13 && minute === 0) {
+          console.log('Triggering comment cleanup at Monday 1:00pm PT (24 hours after service)')
           const response = await fetch('/api/comments', { method: 'DELETE' })
           if (response.ok) {
             const data = await response.json()
@@ -181,7 +181,7 @@ export default function PrayerComments() {
           Service Messages
         </h3>
         <p className="text-gray-700 mb-2">
-          The message box is open during Sunday worship service (9:00 AM - 12:30 PM Pacific Time)
+          The message box is open during Sunday worship service (9:00 AM - 1:00 PM Pacific Time)
         </p>
         <p className="text-gray-600 text-sm">
           Outside of service hours, please email announcements to{' '}

@@ -99,15 +99,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Get current Sunday session date and Pacific Time timestamp
+    // Get current Sunday session date and timestamp
     const now = new Date()
     const pacificTime = toZonedTime(now, 'America/Los_Angeles')
     const sessionDate = format(pacificTime, 'yyyy-MM-dd')
-    // Convert Pacific time to UTC for storage (Airtable stores in UTC)
-    // Add 8 hours during PST or 7 hours during PDT
-    const utcOffset = pacificTime.getTimezoneOffset() === 480 ? 8 : 7 // 480 min = 8 hours
-    const utcTime = new Date(pacificTime.getTime() + (utcOffset * 60 * 60 * 1000))
-    const timestamp = utcTime.toISOString()
+    // Store the current time as-is in UTC (Airtable handles timezone conversion)
+    const timestamp = now.toISOString()
 
     const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE_NAME)}`
 
