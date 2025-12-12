@@ -66,7 +66,30 @@ export default function PrayerComments() {
         const response = await fetch('/api/comments')
         if (response.ok) {
           const data = await response.json()
-          setComments(data.comments || [])
+          const allComments = data.comments || []
+          
+          // Filter to show only today's comments (in Pacific Time) + pinned welcome comment
+          const now = new Date()
+          const pacificTime = toZonedTime(now, 'America/Los_Angeles')
+          const todayDate = format(pacificTime, 'yyyy-MM-dd')
+          
+          const filteredComments = allComments.filter((comment: Comment, index: number) => {
+            // Always show pinned welcome message from church (identified by church name)
+            if (comment.firstName === 'Ukiah United' || index === 0) return true
+            
+            // Show comments from today's session
+            // Extract date from timestamp and compare
+            try {
+              const commentDate = format(toZonedTime(new Date(comment.timestamp), 'America/Los_Angeles'), 'yyyy-MM-dd')
+              return commentDate === todayDate
+            } catch (error) {
+              // If timestamp is invalid, don't show the comment
+              console.error('Invalid timestamp for comment:', comment.id, error)
+              return false
+            }
+          })
+          
+          setComments(filteredComments)
         }
       } catch (error) {
         console.error('Error fetching comments:', error)
@@ -201,12 +224,17 @@ export default function PrayerComments() {
     <div className="space-y-6">
       {/* Comments Display - Always visible during service time */}
       <div className="bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-md p-6 border border-blue-100">
-        <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-          <svg className="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
-          </svg>
-          Service Messages
-        </h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-xl font-semibold text-gray-800 flex items-center">
+            <svg className="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+            </svg>
+            Service Messages
+          </h3>
+          <span className="text-xs text-gray-500 bg-white px-3 py-1 rounded-full border border-gray-200">
+            📅 Today's Messages
+          </span>
+        </div>
         {comments.length === 0 ? (
           <p className="text-gray-500 text-center py-8">
             No messages yet. Be the first to share!
