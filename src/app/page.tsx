@@ -14,6 +14,10 @@ export default function Home() {
   useEffect(() => {
     const checkServiceTime = () => {
       try {
+        // NYE SERVICE - TEMPORARILY FORCE LIVESTREAM ON
+        setIsServiceTime(true)
+        return
+        
         const now = new Date()
         const pacificTime = toZonedTime(now, 'America/Los_Angeles')
         const day = getDay(pacificTime)
