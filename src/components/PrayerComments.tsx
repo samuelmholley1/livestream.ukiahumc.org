@@ -28,10 +28,6 @@ export default function PrayerComments() {
   useEffect(() => {
     const checkServiceTime = () => {
       try {
-        // NYE SERVICE - TEMPORARILY FORCE COMMENTS ON
-        setIsServiceTime(true)
-        return
-        
         const now = new Date()
         const pacificTime = toZonedTime(now, 'America/Los_Angeles')
         const day = getDay(pacificTime)
